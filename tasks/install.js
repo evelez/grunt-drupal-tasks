@@ -22,14 +22,14 @@ module.exports = function(grunt) {
   var cmd = {cmd: Drupal.drushPath()},
     args = [ '--root=<%= config.buildPaths.html %>' ],
     profile = grunt.config('config.project.profile') || 'standard',
-    dbUrl = grunt.option('db-url') || '';
-
-  if (dbUrl) {
-    dbUrl = '--db-url=' + dbUrl;
-  }
+    optKeys = ['db-url', 'locale', 'sites-name', 'sites-subdir'],
+    extraOpts = _.map(optKeys, function(key) {
+        var value = grunt.option(key);
+        return value ? '--' + key + '=' + value : '';
+      });
 
   grunt.config(['drush', 'install'], {
-    args: args.concat(['site-install', '-yv', profile, dbUrl]),
+    args: args.concat(['site-install', '-yv', profile], extraOpts),
     options: _.extend({
     }, cmd)
   });
