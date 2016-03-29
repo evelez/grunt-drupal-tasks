@@ -22,7 +22,7 @@ module.exports = function(grunt) {
   var cmd = {cmd: Drupal.drushPath()},
     args = [ '--root=<%= config.buildPaths.html %>' ],
     profile = grunt.config('config.project.profile') || 'standard',
-    optKeys = ['db-url', 'locale', 'sites-name', 'sites-subdir'],
+    optKeys = ['db-url', 'locale', 'site-name', 'sites-subdir'],
     extraOpts = _.map(optKeys, function(key) {
         var value = grunt.option(key);
         return value ? '--' + key + '=' + value : '';
